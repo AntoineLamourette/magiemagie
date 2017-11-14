@@ -5,6 +5,7 @@
  */
 package magiemagie;
 
+import com.sun.glass.ui.SystemClipboard;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -123,32 +124,32 @@ public class Jeu {
 
         //3 .Affiche menu action  
         menuAction();
+        //4.Passer la main
     }
 
     public void menuAction() {
         //1.affiche menu
         boolean termine = false;
         do {
-        System.out.println("A vous de jouer:" + joueurEnCours.getNom());
-        System.out.println("Vos cartes:" + joueurEnCours.getCartes());
-        System.out.println("1.lancer sort");
-        System.out.println("2.passer son tour");
-        System.out.print("Votre choix:");
-        
-        Scanner choix = new Scanner(System.in);// String choix1 = new Scanner (System.in).nextline();
-        String choix2 = choix.nextLine();
-        //2.lance sort ou passe tour
-        
+            System.out.println("A vous de jouer:" + joueurEnCours.getNom());
+            System.out.println("Vos cartes:" + joueurEnCours.getCartes());
+            System.out.println("1.lancer sort");
+            System.out.println("2.passer son tour");
+            System.out.print("Votre choix:");
+
+            Scanner choix = new Scanner(System.in);// String choix1 = new Scanner (System.in).nextline();
+            String choix2 = choix.nextLine();
+            //2.lance sort ou passe tour
 
             switch (choix2) {
 
                 case "1":
                     lancerSort();
-                    termine=true;
+                    termine = true;
                     break;
                 case "2":
                     passerSonTour();
-                    termine=true;
+                    termine = true;
                     break;
                 default:
                     System.out.println("essaie encore");
@@ -159,116 +160,162 @@ public class Jeu {
 
     public void lancerSort() {
 //1.Afffiche les sorts possibles pour joueurEnCours
-    boolean termine = false;
-    do {
-    Carte carteCorneLicorne = new Carte();
-    Carte carteBaveCrapaud = new Carte();
-    Carte carteMandragore = new Carte();
-    Carte carteAilesCSS = new Carte();
-    Carte carteLapisLazu = new Carte();
-    
-    carteCorneLicorne.setType(Carte.TypeCarte.CORNE_DE_LICORNE);
-    carteBaveCrapaud.setType(Carte.TypeCarte.BAVE_DE_CRAPAUD);
-    carteMandragore.setType(Carte.TypeCarte.MANDRAGORE);
-    carteAilesCSS.setType(Carte.TypeCarte.AILE_DE_CHAUVE_SOURIS);
-    carteLapisLazu.setType(Carte.TypeCarte.LAPIS_LAZULI);
-    
-    if (joueurEnCours.getCartes().contains(carteCorneLicorne) && 
-            joueurEnCours.getCartes().contains(carteBaveCrapaud))
-        System.out.println("1 Invisibilite");
-       
-    
-    if (joueurEnCours.getCartes().contains(carteCorneLicorne) &&
-            joueurEnCours.getCartes().contains(carteMandragore))
-        System.out.println("2 Philtre d'amour");
-    
-    if (joueurEnCours.getCartes().contains(carteBaveCrapaud) &&
-            joueurEnCours.getCartes().contains(carteLapisLazu))
-        System.out.println("3 Hypnose");
-    
-    if (joueurEnCours.getCartes().contains(carteLapisLazu) &&
-            joueurEnCours.getCartes().contains(carteAilesCSS))
-        System.out.println("4 Divination");
-    
-    if (joueurEnCours.getCartes().contains(carteMandragore) &&
-            joueurEnCours.getCartes().contains(carteAilesCSS))
-        System.out.println("5 Sommeil profond");
-    
-    //2.Saisie sort à lancer  
-    
-        
-    Scanner choix = new Scanner (System.in);
-    String choix1 = choix.nextLine();
-    
-    switch (choix1){
-        case "1 ":
-            sortInvisibilite();
-            termine = true;
-                     
-            break;
-            
-        case "2 ":
-             sortPhiltreAmour();
-            termine = true;
-             
-             
-            break;
-            
-        case "3 ":
-            sortHypnose();
-            termine = true;
-            
-            break;
-            
-        case "4 ":
-            sortDivination();
-            termine = true;
-           
-            break;
-            
-        case "5 ":
-            sortSommeilProfond();
-            termine = true;
-            
-            break;
-        default:
-            System.out.println("Ce sort n'existe pas");
-            return;
-            
-    }
-    }
-    while (termine==false);
-    }
+        boolean termine = false;
+        do {
+            Carte carteCorneLicorne = new Carte();
+            Carte carteBaveCrapaud = new Carte();
+            Carte carteMandragore = new Carte();
+            Carte carteAilesCSS = new Carte();
+            Carte carteLapisLazu = new Carte();
 
+            carteCorneLicorne.setType(Carte.TypeCarte.CORNE_DE_LICORNE);
+            carteBaveCrapaud.setType(Carte.TypeCarte.BAVE_DE_CRAPAUD);
+            carteMandragore.setType(Carte.TypeCarte.MANDRAGORE);
+            carteAilesCSS.setType(Carte.TypeCarte.AILE_DE_CHAUVE_SOURIS);
+            carteLapisLazu.setType(Carte.TypeCarte.LAPIS_LAZULI);
+
+            if (joueurEnCours.getCartes().contains(carteCorneLicorne)
+                    && joueurEnCours.getCartes().contains(carteBaveCrapaud)) {
+                System.out.println("1 Invisibilite");
+            }
+
+            if (joueurEnCours.getCartes().contains(carteCorneLicorne)
+                    && joueurEnCours.getCartes().contains(carteMandragore)) {
+                System.out.println("2 Philtre d'amour");
+            }
+
+            if (joueurEnCours.getCartes().contains(carteBaveCrapaud)
+                    && joueurEnCours.getCartes().contains(carteLapisLazu)) {
+                System.out.println("3 Hypnose");
+            }
+
+            if (joueurEnCours.getCartes().contains(carteLapisLazu)
+                    && joueurEnCours.getCartes().contains(carteAilesCSS)) {
+                System.out.println("4 Divination");
+            }
+
+            if (joueurEnCours.getCartes().contains(carteMandragore)
+                    && joueurEnCours.getCartes().contains(carteAilesCSS)) {
+                System.out.println("5 Sommeil profond");
+            }
+
+            //2.Saisie sort à lancer  
+            Scanner choix = new Scanner(System.in);
+            String choix1 = choix.nextLine();
+
+            switch (choix1) {
+                case "1":
+                    sortInvisibilite();
+                    termine = true;
+
+                    break;
+
+                case "2":
+                    sortPhiltreAmour();
+                    termine = true;
+
+                    break;
+
+                case "3":
+                    sortHypnose();
+                    termine = true;
+                    break;
+                    case "4":
+                    sortDivination();
+                    termine = true;
+                    break;
+                case "5":
+                    sortSommeilProfond();
+                    termine = true;
+                    break;
+                default:
+                    System.out.println("Ce sort n'existe pas");
+                    return;
+            }
+        } while (termine == false);   
+        
+     }           
+                    
+    public Carte carteAuHasard(){
+        
+        Carte.TypeCarte[] tabTypeCarte = Carte.TypeCarte.values();
+        int indiceAleat = new Random().nextInt(tabTypeCarte.length);
+        Carte carte = new Carte();
+        carte.setType( tabTypeCarte[indiceAleat] );
+        
+        return carte;
+    }
+                    
+
+            
     
 
 //3   .Lancement du sort
-
 //4.Supprime les 2 cartes ayant permis de lancer le sort
+    public void passerSonTour() {
+        Scanner scan = new Scanner(System.in);
+       
+        joueurEnCours.getCartes().add(carteAuHasard());
+     }   
+        
+    public void passerlaMain(){
+        
+        
+        Carte.TypeCarte[] n = Carte.TypeCarte.values();
+        
+        joueurEnCours = joueurs.get(0);
+    }
     
 
-    public void passerSonTour() {
-
-    }
-
     private void sortInvisibilite() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        // Itere sur ts joueurs
+        for (int i = 0; i < joueurs.size(); i++) {
+
+            Joueur joueurCible = joueurs.get(i);
+            
+            // 1. Si le joueur possède au - 1 carte ALORS
+            if (!joueurCible.getCartes().isEmpty()) {
+                // 1. Get sa carte 0
+                Carte carteAVoler = joueurCible.getCartes().get(0);
+                
+                // 2 Se la add à nous
+                joueurEnCours.getCartes().add( carteAVoler );
+                // 3 La remove à lui
+                joueurCible.getCartes().remove(carteAVoler);
+            }
+        }
+
     }
 
     private void sortPhiltreAmour() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//        Scanner scan = new Scanner(System.in);
+//        joueurCible = j
+//        for (int i = 0; i < joueurs.size();){
+//            Joueur joueurCible = joueurs.get(i);
+//            
+//            if (!joueurCible.getCartes().isEmpty()){
+//                
+//                Carte carteAVoler = joueurCible.getCartes().get(i);
+//                
+//                joueurEnCours.getCartes().add(carteAVoler);
+//                
+//                joueurCible.getCartes().remove(carteAVoler);
+            }
+        
+    
 
     private void sortHypnose() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     private void sortDivination() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     private void sortSommeilProfond() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        passerSonTour();
+        passerSonTour();
     }
 
 }
