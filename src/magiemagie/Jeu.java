@@ -125,6 +125,7 @@ public class Jeu {
         //3 .Affiche menu action  
         menuAction();
         //4.Passer la main
+        passerLaMain();
     }
 
     public void menuAction() {
@@ -233,7 +234,7 @@ public class Jeu {
                     return;
             }
         } while (termine == false);   
-        
+        passerLaMain();
      }           
                     
     public Carte carteAuHasard(){
@@ -256,14 +257,21 @@ public class Jeu {
         Scanner scan = new Scanner(System.in);
        
         joueurEnCours.getCartes().add(carteAuHasard());
+        passerLaMain();
      }   
         
-    public void passerlaMain(){
+    public void passerLaMain(){
+        if(this.joueurEnCours == this.joueurs.get(this.joueurs.size()-1)){
+            joueurEnCours = joueurs.get(0);
+        }
+        else{
+            Carte.TypeCarte[] n = Carte.TypeCarte.values();
+            
+        }
         
         
-        Carte.TypeCarte[] n = Carte.TypeCarte.values();
-        
-        joueurEnCours = joueurs.get(0);
+//        
+//        joueurEnCours = joueurs.get(0);
     }
     
 
