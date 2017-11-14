@@ -125,7 +125,7 @@ public class Jeu {
         //3 .Affiche menu action  
         menuAction();
         //4.Passer la main
-        passerLaMain();
+        passerAuJoueurSuivant();
     }
 
     public void menuAction() {
@@ -146,11 +146,11 @@ public class Jeu {
 
                 case "1":
                     lancerSort();
-                    termine = true;
+                    passerAuJoueurSuivant();
                     break;
                 case "2":
-                    passerSonTour();
-                    termine = true;
+                    piocherUneCarte();
+                    passerAuJoueurSuivant();
                     break;
                 default:
                     System.out.println("essaie encore");
@@ -221,7 +221,7 @@ public class Jeu {
                     sortHypnose();
                     termine = true;
                     break;
-                    case "4":
+                case "4":
                     sortDivination();
                     termine = true;
                     break;
@@ -233,47 +233,37 @@ public class Jeu {
                     System.out.println("Ce sort n'existe pas");
                     return;
             }
-        } while (termine == false);   
-        passerLaMain();
-     }           
-                    
-    public Carte carteAuHasard(){
-        
+        } while (termine == false);
+    }
+
+    public Carte carteAuHasard() {
+
         Carte.TypeCarte[] tabTypeCarte = Carte.TypeCarte.values();
         int indiceAleat = new Random().nextInt(tabTypeCarte.length);
         Carte carte = new Carte();
-        carte.setType( tabTypeCarte[indiceAleat] );
-        
+        carte.setType(tabTypeCarte[indiceAleat]);
+
         return carte;
     }
-                    
-
-            
-    
 
 //3   .Lancement du sort
 //4.Supprime les 2 cartes ayant permis de lancer le sort
-    public void passerSonTour() {
+    public void piocherUneCarte() {
         Scanner scan = new Scanner(System.in);
-       
+
         joueurEnCours.getCartes().add(carteAuHasard());
-        passerLaMain();
-     }   
-        
-    public void passerLaMain(){
-        if(this.joueurEnCours == this.joueurs.get(this.joueurs.size()-1)){
+    }
+
+    public void passerAuJoueurSuivant() {
+        if (this.joueurEnCours == this.joueurs.get(this.joueurs.size() - 1)) {
             joueurEnCours = joueurs.get(0);
-        }
-        else{
+        } else {
             Carte.TypeCarte[] n = Carte.TypeCarte.values();
-            
         }
-        
-        
+
 //        
 //        joueurEnCours = joueurs.get(0);
     }
-    
 
     private void sortInvisibilite() {
 
@@ -281,14 +271,14 @@ public class Jeu {
         for (int i = 0; i < joueurs.size(); i++) {
 
             Joueur joueurCible = joueurs.get(i);
-            
+
             // 1. Si le joueur possède au - 1 carte ALORS
             if (!joueurCible.getCartes().isEmpty()) {
                 // 1. Get sa carte 0
                 Carte carteAVoler = joueurCible.getCartes().get(0);
-                
+
                 // 2 Se la add à nous
-                joueurEnCours.getCartes().add( carteAVoler );
+                joueurEnCours.getCartes().add(carteAVoler);
                 // 3 La remove à lui
                 joueurCible.getCartes().remove(carteAVoler);
             }
@@ -309,9 +299,7 @@ public class Jeu {
 //                joueurEnCours.getCartes().add(carteAVoler);
 //                
 //                joueurCible.getCartes().remove(carteAVoler);
-            }
-        
-    
+    }
 
     private void sortHypnose() {
 
@@ -322,8 +310,8 @@ public class Jeu {
     }
 
     private void sortSommeilProfond() {
-        passerSonTour();
-        passerSonTour();
+        piocherUneCarte();
+        piocherUneCarte();
     }
 
 }

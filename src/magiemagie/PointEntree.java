@@ -22,9 +22,6 @@ public class PointEntree {
         Jeu jeu = new Jeu();
         
         jeu.afficherMenuPrincipal();
-    
-        jeu.demarrerPartie();
-    
     }
     
 }
